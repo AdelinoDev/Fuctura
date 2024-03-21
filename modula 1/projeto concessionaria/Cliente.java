@@ -39,12 +39,12 @@ public class Cliente extends Pessoa {
         this.nome = nome;
     }
 
-    public List<Cliente> getClientesCadastrados() {
+    public List<Cliente> getListaClientes() {
         return listaClientes;
     }
 
-    public void setClientesCadastrados(List<Cliente> clientesCadastrados) {
-        this.listaClientes = clientesCadastrados;
+    public void setListaClientes(List<Cliente> listaClientes) {
+        this.listaClientes = listaClientes;
     }
 
     public void cadastraCliente() {
@@ -53,10 +53,9 @@ public class Cliente extends Pessoa {
         Cliente cl = new Cliente();
 
         System.out.println("Digite o seu nome: ");
-        cl.setNome(sc.next());
+        cl.setNome(sc.nextLine());
         System.out.println("Digite o seu telefone: ");
         cl.setTelefone(sc.next());
-        //this.telefone = sc.next();
 
         System.out.println("Digite o seu CPF: ");
         cl.setCpf(sc.next());
