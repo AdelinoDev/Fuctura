@@ -1,0 +1,35 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+	version="2.2">
+
+	<!-- PostgreSQL -->
+	<persistence-unit name="FUCTURA-PU">
+		<properties>
+			<property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/concessionaria" />
+			<property name="jakarta.persistence.jdbc.user" value="postgres" />
+			<property name="jakarta.persistence.jdbc.password" value="14011982" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.connection.pool_size" value="10" />
+		</properties>
+	</persistence-unit>
+
+	<!-- H2 em memória -->
+	<persistence-unit name="h2-in-memory-pu" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<properties>
+			<property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" />
+			<property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver" />
+			<property name="jakarta.persistence.jdbc.user" value="sa" />
+			<property name="jakarta.persistence.jdbc.password" value="" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+		</properties>
+	</persistence-unit>
+</persistence>
