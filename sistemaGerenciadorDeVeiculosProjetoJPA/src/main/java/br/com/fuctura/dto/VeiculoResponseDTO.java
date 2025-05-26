@@ -1,23 +1,33 @@
 package br.com.fuctura.dto;
 
+import br.com.fuctura.entities.Loja;
+import br.com.fuctura.entities.Tipo;
+import br.com.fuctura.entities.Venda;
+
 public class VeiculoResponseDTO {
 
 	private Integer codigo;
-	
 	private String placa;
 	private String modelo;
 	private Integer ano;
 	private Double valor;
+	private Loja loja;
+	private Tipo tipo;
+	private Venda venda;
 	
 	public VeiculoResponseDTO() {}
 
-	public VeiculoResponseDTO(Integer codigo, String placa, String modelo, Integer ano, Double valor) {
+	public VeiculoResponseDTO(Integer codigo, String placa, String modelo, Integer ano, Double valor, Loja loja,
+			Tipo tipo, Venda venda) {
 		super();
 		this.codigo = codigo;
 		this.placa = placa;
 		this.modelo = modelo;
 		this.ano = ano;
 		this.valor = valor;
+		this.loja = loja;
+		this.tipo = tipo;
+		this.venda = venda;
 	}
 
 	public Integer getCodigo() {
@@ -60,14 +70,31 @@ public class VeiculoResponseDTO {
 		this.valor = valor;
 	}
 
-	@Override
-	public String toString() {
-		return "VeiculoResponseDTO [codigo=" + codigo 
-				+ ", placa=" + placa 
-				+ ", modelo=" + modelo 
-				+ ", ano=" + ano
-				+ ", valor=" + valor + "]";
+	public Loja getLoja() {
+		return loja;
 	}
+
+	public void setLoja(Loja loja) {
+		this.loja = loja;
+	}
+
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
+
+	public Venda getVenda() {
+		return venda;
+	}
+
+	public void setVenda(Venda venda) {
+		this.venda = venda;
+	}
+	
+	
 	
 	
 }

@@ -1,24 +1,31 @@
 package br.com.fuctura.dto;
 
-public class ClienteResponseDTO {
+import br.com.fuctura.entities.Endereco;
+import br.com.fuctura.entities.Venda;
 
-	private Integer codigo;
+public class ClienteResponseDTO {
 	
+	private Integer codigo;
 	private String nome;
 	private String cpf;
 	private String celular;
 	private String email;
+	private Venda venda;
+	private Endereco endereco;
 	
-	public ClienteResponseDTO() {}
+	public ClienteResponseDTO( ) {}
 
-	public ClienteResponseDTO(Integer codigo, String nome, String cpf, String celular, String email) {
-		super();
+	public ClienteResponseDTO(Integer codigo, String nome, String cpf, String celular, 
+			String email, Venda venda, Endereco endereco) {
 		this.codigo = codigo;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.celular = celular;
 		this.email = email;
+		this.venda = venda;
+		this.endereco = endereco;
 	}
+	
 
 	public Integer getCodigo() {
 		return codigo;
@@ -60,14 +67,22 @@ public class ClienteResponseDTO {
 		this.email = email;
 	}
 
-	@Override
-	public String toString() {
-		return "ClienteResponseDTO [codigo=" + codigo + ""
-				+ ", nome=" + nome + ""
-				+ ", cpf=" + cpf + ""
-				+ ", celular=" + celular
-				+ ", email=" + email + "]";
+	public Venda getVenda() {
+		return venda;
 	}
+
+	public void setVenda(Venda venda) {
+		this.venda = venda;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+	
 	
 	
 }

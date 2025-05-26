@@ -1,21 +1,32 @@
 package br.com.fuctura.dto;
 
+import br.com.fuctura.entities.Loja;
+import br.com.fuctura.entities.Tipo;
+import br.com.fuctura.entities.Venda;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+
 public class VeiculoRequestDTO {
-	
+
 	private String placa;
 	private String modelo;
 	private Integer ano;
 	private Double valor;
+	private Loja loja;
+	private Tipo tipo;
+	private Venda venda;
 	
-	public VeiculoRequestDTO() {
-	}
+	public VeiculoRequestDTO() {}
 
-	public VeiculoRequestDTO(String placa, String modelo, Integer ano, Double valor) {
-		super();
+	public VeiculoRequestDTO(String placa, String modelo, Integer ano, Double valor, 
+			Loja loja, Tipo tipo, Venda venda) {
 		this.placa = placa;
 		this.modelo = modelo;
 		this.ano = ano;
 		this.valor = valor;
+		this.loja = loja;
+		this.tipo = tipo;
+		this.venda = venda;
 	}
 
 	public String getPlaca() {
@@ -50,16 +61,28 @@ public class VeiculoRequestDTO {
 		this.valor = valor;
 	}
 
-	@Override
-	public String toString() {
-		return "VeiculoRequestDTO [placa=" + placa 
-				+ ", modelo=" + modelo 
-				+ ", ano=" + ano 
-				+ ", valor=" + valor + "]";
+	public Loja getLoja() {
+		return loja;
 	}
-	
-	
-	
-	
+
+	public void setLoja(Loja loja) {
+		this.loja = loja;
+	}
+
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
+
+	public Venda getVenda() {
+		return venda;
+	}
+
+	public void setVenda(Venda venda) {
+		this.venda = venda;
+	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.fuctura.entities.Veiculo;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 
 public class VeiculoRepository {
 	
@@ -32,17 +33,23 @@ public class VeiculoRepository {
         }
     }
 
+    
     public Veiculo buscarPorId(Integer codigo) {
         EntityManager em = JPAUtil.getEntityManager();
         
         try {
-            return em.find(Veiculo.class, codigo);
-            
+            return em.createQuery("SELECT v FROM Veiculo v WHERE v.codigo = :codigo", Veiculo.class)
+                     .setParameter("codigo", codigo)
+                     .getSingleResult();
+              
+        } catch (NoResultException e) {
+            return null; 
         } finally {
             em.close();
         }
     }
 
+       
     public void atualizar(Veiculo veiculo) {
         EntityManager em = JPAUtil.getEntityManager();
         

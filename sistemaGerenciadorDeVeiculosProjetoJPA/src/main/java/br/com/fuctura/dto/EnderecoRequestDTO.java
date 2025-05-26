@@ -1,36 +1,22 @@
-package br.com.fuctura.entities;
+package br.com.fuctura.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import br.com.fuctura.entities.Cliente;
+import br.com.fuctura.entities.Loja;
 
-@Entity
-@Table(name = "tb_endereco")
-public class Endereco {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer codigo;
-	
+public class EnderecoRequestDTO {
+
 	private String cep;
 	private String logradouro;
 	private String complemento;
 	private String numero;
-	
-	@OneToOne
 	private Loja loja;
-	
-	@OneToOne
 	private Cliente cliente;
 	
-	public Endereco() {}
+	
+	public EnderecoRequestDTO() {}
 
-	public Endereco(Integer codigo, String cep, String logradouro, String complemento, String numero, Loja loja,
-			Cliente cliente) {
-		this.codigo = codigo;
+	public EnderecoRequestDTO(String cep, String logradouro, String complemento, 
+			String numero, Loja loja, Cliente cliente) {
 		this.cep = cep;
 		this.logradouro = logradouro;
 		this.complemento = complemento;
@@ -40,14 +26,6 @@ public class Endereco {
 	}
 
 	
-	public Integer getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
-	}
-
 	public String getCep() {
 		return cep;
 	}
@@ -97,7 +75,4 @@ public class Endereco {
 	}
 	
 	
-	
-	
-
 }

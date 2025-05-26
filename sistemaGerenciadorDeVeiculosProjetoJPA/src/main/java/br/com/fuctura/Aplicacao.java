@@ -1,17 +1,26 @@
 package br.com.fuctura;
 
-import java.util.Scanner;
-
-import br.com.fuctura.entities.Vendedor;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import br.com.fuctura.controller.VeiculoController;
+import br.com.fuctura.repository.VeiculoRepository;
+import br.com.fuctura.service.VeiculoService;
+import br.com.fuctura.views.MenuVeiculo;
 
 public class Aplicacao {
 
 	public static void main(String[] args) {
 		
-		Scanner sc = new Scanner(System.in);
+
+		 MenuVeiculo mv = new MenuVeiculo();
+		 
+		 mv.MenuVeiculo();
+    }
+        
+		
+	
+
+}
+
+/*Scanner sc = new Scanner(System.in);
 		
 		EntityManagerFactory emf = Persistence
 				.createEntityManagerFactory("h2-in-memory-pu");
@@ -30,10 +39,4 @@ public class Aplicacao {
 		//CONSULTAR
 		Vendedor v1 = em.find(Vendedor.class, 1);
 		
-		System.out.println("Nome: " + v1.getNome());
-		
-		
-	
-	}
-
-}
+		System.out.println("Nome: " + v1.getNome());*/

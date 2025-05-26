@@ -1,32 +1,20 @@
-package br.com.fuctura.entities;
+package br.com.fuctura.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import br.com.fuctura.entities.Veiculo;
 
-@Entity
-@Table(name = "tb_tipo")
-public class Tipo {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TipoResponseDTO {
+
 	private Integer codigo;
 	private String descricao;
-	
-	@OneToOne
 	private Veiculo veiculo;
 	
-	public Tipo() {}
-	
-	public Tipo(Integer codigo, String descricao, Veiculo veiculo) {
+	public TipoResponseDTO() {}
+
+	public TipoResponseDTO(Integer codigo, String descricao, Veiculo veiculo) {
 		this.codigo = codigo;
 		this.descricao = descricao;
 		this.veiculo = veiculo;
 	}
-
 
 	public Integer getCodigo() {
 		return codigo;
@@ -53,5 +41,6 @@ public class Tipo {
 	}
 	
 	
-
+	
+	
 }

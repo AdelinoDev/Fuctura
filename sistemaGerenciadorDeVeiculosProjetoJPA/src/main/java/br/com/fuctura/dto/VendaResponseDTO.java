@@ -1,38 +1,24 @@
-package br.com.fuctura.entities;
+package br.com.fuctura.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import br.com.fuctura.entities.Cliente;
+import br.com.fuctura.entities.Loja;
+import br.com.fuctura.entities.Veiculo;
+import br.com.fuctura.entities.Vendedor;
 
-@Entity
-@Table(name = "tb_venda")
-public class Venda {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
+public class VendaResponseDTO {
+
 	private Integer codigo;
 	private Double valor;
-	
-	@OneToOne
 	private Loja loja;
-	
-	@OneToOne
 	private Vendedor vendedor;
-	
-	@OneToOne
 	private Cliente cliente;
-
-	@OneToOne
 	private Veiculo veiculo;
-	
-	public Venda() {}
 
-	public Venda(Integer codigo, Double valor, Loja loja, Vendedor vendedor, 
-			Cliente cliente, Veiculo veiculo) {
+	public VendaResponseDTO() {
+	}
+
+	public VendaResponseDTO(Integer codigo, Double valor, Loja loja, Vendedor vendedor, Cliente cliente,
+			Veiculo veiculo) {
 		this.codigo = codigo;
 		this.valor = valor;
 		this.loja = loja;
@@ -40,7 +26,6 @@ public class Venda {
 		this.cliente = cliente;
 		this.veiculo = veiculo;
 	}
-	
 
 	public Integer getCodigo() {
 		return codigo;
@@ -89,6 +74,5 @@ public class Venda {
 	public void setVeiculo(Veiculo veiculo) {
 		this.veiculo = veiculo;
 	}
-	
-	
+
 }
