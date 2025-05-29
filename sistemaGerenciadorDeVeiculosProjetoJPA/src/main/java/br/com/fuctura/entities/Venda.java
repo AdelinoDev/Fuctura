@@ -17,16 +17,16 @@ public class Venda {
 	private Integer codigo;
 	private Double valor;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "venda")
 	private Loja loja;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "venda")
 	private Vendedor vendedor;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "venda")
 	private Cliente cliente;
 
-	@OneToOne
+	@OneToOne(mappedBy = "venda")
 	private Veiculo veiculo;
 	
 	public Venda() {}

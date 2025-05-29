@@ -1,9 +1,11 @@
 package br.com.fuctura.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -20,7 +22,8 @@ public class Vendedor {
 	private String celular;
 	private String email;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "venda_id", referencedColumnName = "codigo")
 	private Venda venda;
 	
 	public Vendedor() {}

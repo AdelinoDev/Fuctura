@@ -1,9 +1,11 @@
 package br.com.fuctura.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -22,10 +24,15 @@ public class Veiculo {
 	private Double valor;
 	
 	@ManyToOne
+	@JoinColumn(name = "loja_id")
 	private Loja loja;
-	@OneToOne
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "tipo_id", referencedColumnName = "codigo")
 	private Tipo tipo;
-	@OneToOne
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "venda_id", referencedColumnName = "codigo")
 	private Venda venda;
 	
 	

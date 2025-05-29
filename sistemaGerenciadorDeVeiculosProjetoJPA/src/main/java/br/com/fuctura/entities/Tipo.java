@@ -16,7 +16,7 @@ public class Tipo {
 	private Integer codigo;
 	private String descricao;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "tipo")
 	private Veiculo veiculo;
 	
 	public Tipo() {}

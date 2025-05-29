@@ -20,10 +20,10 @@ public class Endereco {
 	private String complemento;
 	private String numero;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "end")
 	private Loja loja;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "endereco")
 	private Cliente cliente;
 	
 	public Endereco() {}
