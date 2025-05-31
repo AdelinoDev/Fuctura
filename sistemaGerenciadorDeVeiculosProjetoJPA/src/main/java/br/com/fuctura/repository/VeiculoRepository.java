@@ -22,6 +22,7 @@ public class VeiculoRepository {
         }
     }
 
+	
     public List<Veiculo> listarTodos() {
         EntityManager em = JPAUtil.getEntityManager();
         
@@ -63,6 +64,7 @@ public class VeiculoRepository {
         }
     }
 
+    
     public void deletarVeiculo(Integer codigo) {
         EntityManager em = JPAUtil.getEntityManager();
         

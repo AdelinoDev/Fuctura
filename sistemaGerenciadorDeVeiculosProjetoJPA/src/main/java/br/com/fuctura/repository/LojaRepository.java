@@ -35,6 +35,7 @@ public class LojaRepository {
         }
     }
     
+    
     public Loja buscarPorId(Integer codigo) {
     	
     	EntityManager em = JPAUtil.getEntityManager();
@@ -54,7 +55,7 @@ public class LojaRepository {
     }
     
     
-    public void atualizar(Loja loja) {
+    public Loja atualizar(Loja loja) {
     	
     	EntityManager em = JPAUtil.getEntityManager();
     	
@@ -62,6 +63,8 @@ public class LojaRepository {
     		em.getTransaction().begin();
     		em.merge(loja);
     		em.getTransaction().commit();
+    		
+    		return loja;
     		
     	} finally {
     		em.close();
