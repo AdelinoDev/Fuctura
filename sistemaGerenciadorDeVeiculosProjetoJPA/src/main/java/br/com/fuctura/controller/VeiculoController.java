@@ -1,21 +1,14 @@
 package br.com.fuctura.controller;
 
+import java.util.List;
 import java.util.Scanner;
 
-import br.com.fuctura.dto.VeiculoRequestDTO;
-import br.com.fuctura.dto.VeiculoResponseDTO;
-import br.com.fuctura.service.VeiculoService;
+import br.com.fuctura.dao.VeiculoDAO;
+import br.com.fuctura.entities.Veiculo;
 
 public class VeiculoController {
 	
-	private VeiculoService service;
-	
 	Scanner sc = new Scanner(System.in);
-
-	public VeiculoController(VeiculoService service) {
-		this.service = service;
-	}
-
 
 
 	public void menuVeiculo() {
@@ -39,7 +32,7 @@ public class VeiculoController {
             case 2 -> listaTodosVeiculos();
             case 3 -> buscarVeiculoPorCodigo();
             case 4 -> atualizarVeiculo();
-            case 5 -> removerVeiculo();
+            case 5 -> deletarVeiculo();
             case 0 -> System.out.println("Retornando ao menu principal...");
             default -> System.out.println("Opção inválida.");
             
@@ -52,87 +45,139 @@ public class VeiculoController {
 	
 	public void cadastrarVeiculo() {
 		
-		VeiculoRequestDTO dto = new VeiculoRequestDTO();
-		
-		System.out.println("Informe a placa do veículo: ");
-		dto.setPlaca(sc.nextLine());
-		System.out.println("Informe o modelo do veículo: ");
-		dto.setModelo(sc.nextLine());
-		System.out.println("Informe o ano do veículo: ");
-		dto.setAno(sc.nextInt());
-		sc.nextLine();
-		System.out.println("Informe o valor do veículo: ");
-		dto.setValor(sc.nextDouble());
-		sc.nextLine();
-		
-		service.criarVeiculo(dto);
-		
+	    Scanner sc = new Scanner(System.in);
+	   
+	    System.out.println("############### CADASTRO DE VEÍCULO ###############");
+	    
+	    System.out.print("Informe a placa do veículo: ");
+	    String placa = sc.nextLine();
+	    System.out.print("Informe o modelo do veículo: ");
+	    String modelo = sc.nextLine();
+	    System.out.print("Informe o ano do veículo: ");
+	    int ano = sc.nextInt();
+	    sc.nextLine(); 
+	    System.out.print("Informe o valor do veículo: ");
+	    double valor = sc.nextDouble();
+	    sc.nextLine(); 
+ 
+	    // Criando o objeto Veiculo
+	    Veiculo veiculo = new Veiculo();
+	    veiculo.setPlaca(placa);
+	    veiculo.setModelo(modelo);
+	    veiculo.setAno(ano);
+	    veiculo.setValor(valor);
+
+	    VeiculoDAO dao = new VeiculoDAO();
+	    // Salvando no banco de dados
+	    dao.salvarVeiculo(veiculo);
+
+	    System.out.println("\nVeículo cadastrado com sucesso!");
 	}
+
 
 	
 	public void listaTodosVeiculos() {
-		
-		var lista = service.listarTodosVeiculos();
-		
-		System.out.println("\n### Lista de Veículos ###");
-        for (VeiculoResponseDTO v : lista) {
-            System.out.println("Código: " + v.getCodigo());
-            System.out.println("Placa: " + v.getPlaca());
-            System.out.println("Modelo: " + v.getModelo());
-            System.out.println("Ano: " + v.getAno());
-            System.out.println("Valor: " + v.getValor());
-            System.out.println("----------------------------");
-        }
-	}
-	
-	
-	public void buscarVeiculoPorCodigo() {
-    
-	    System.out.print("Informe o codigo do veículo: ");
-	    int codigo = sc.nextInt();	    
-	    sc.nextLine(); // Consome a quebra de linha pendente após nextInt()
-
-	    VeiculoResponseDTO v = service.buscarVeiculoPorCodigo(codigo);
-
-	    if (v != null) {
-	        System.out.println("Código: " + v.getCodigo());
-	        System.out.println("Placa: " + v.getPlaca());
-	        System.out.println("Modelo: " + v.getModelo());
-	        System.out.println("Ano: " + v.getAno());
-	        System.out.println("Valor: " + v.getValor());
-	        System.out.println("----------------------------");
+	    VeiculoDAO dao = new VeiculoDAO();
+	    List<Veiculo> lista = dao.listarTodos();  // busca todos os veículos
+	    
+	    System.out.println("\n### Lista de Veículos ###");
+	    if (lista.isEmpty()) {
+	        System.out.println("Nenhum veículo cadastrado.");
 	    } else {
-	        System.out.println("Veículo com o código '" + codigo + "' não encontrado.");
+	        for (Veiculo v : lista) {
+	            System.out.println("Placa: " + v.getPlaca());
+	            System.out.println("Modelo: " + v.getModelo());
+	            System.out.println("Ano: " + v.getAno());
+	            System.out.println("Valor: " + v.getValor());
+	            System.out.println("----------------------------");
+	        }
 	    }
 	}
 
 	
-	public void atualizarVeiculo() {
-		
-		System.out.println("Informe o código do veículo: ");
-		int codigo = sc.nextInt();
-		sc.nextLine();
-		
-		VeiculoRequestDTO dto = new VeiculoRequestDTO();
-		
-		System.out.println("Informe a nova placa do veículo: ");
-		dto.setPlaca(sc.nextLine());
-		System.out.println("Informe o novo modelo do veículo: ");
-		dto.setModelo(sc.nextLine());
-		System.out.println("Informe o novo ano do veículo: ");
-		dto.setAno(sc.nextInt());sc.nextLine();
-		System.out.println("Informe o novo valor do veículo: ");
-		dto.setValor(sc.nextDouble());sc.nextLine();
-		
-		service.atualizar(codigo, dto);
+	
+	public void buscarVeiculoPorCodigo() {
+	    VeiculoDAO dao = new VeiculoDAO();
+	    System.out.println("Informe o código do veículo:");
+	    int codigo = sc.nextInt();
+	    sc.nextLine();  // limpar buffer
+
+	    Veiculo veiculo = dao.buscarPorId(codigo);
+	    if (veiculo != null) {
+	        System.out.println("Veículo encontrado:");
+	        System.out.println("Placa: " + veiculo.getPlaca());
+	        System.out.println("Modelo: " + veiculo.getModelo());
+	        System.out.println("Ano: " + veiculo.getAno());
+	        System.out.println("Valor: " + veiculo.getValor());
+	    } else {
+	        System.out.println("Veículo com código " + codigo + " não encontrado.");
+	    }
 	}
 
+
 	
-	public void removerVeiculo() {
+	public void atualizarVeiculo() {
 		
-		System.out.println("Informe o código do veículo para ser removido: ");
-		int codigo = sc.nextInt();
-		sc.nextLine();
+	    VeiculoDAO dao = new VeiculoDAO();
+	    
+	    System.out.println("############### CADASTRO DE LOJA ###############");
+	    
+	    System.out.println("Informe o código do veículo para atualizar:");
+	    int codigo = sc.nextInt();
+	    sc.nextLine();  // limpar buffer
+	    
+	    Veiculo veiculo = dao.buscarPorId(codigo);
+	    
+	    if (veiculo == null) {
+	        System.out.println("Veículo com código " + codigo + " não encontrado.");
+	        return;
+	    }
+	    
+	    System.out.println("Informe a nova placa do veículo (atual: " + veiculo.getPlaca() + "):");
+	    String placa = sc.nextLine();
+	    
+	    System.out.println("Informe o novo modelo do veículo (atual: " + veiculo.getModelo() + "):");
+	    String modelo = sc.nextLine();
+	    
+	    System.out.println("Informe o novo ano do veículo (atual: " + veiculo.getAno() + "):");
+	    int ano = sc.nextInt();
+	    sc.nextLine();  // limpar buffer
+	    
+	    System.out.println("Informe o novo valor do veículo (atual: " + veiculo.getValor() + "):");
+	    double valor = sc.nextDouble();
+	    sc.nextLine();  // limpar buffer
+	    
+	    // Atualiza os dados no objeto
+	    veiculo.setPlaca(placa);
+	    veiculo.setModelo(modelo);
+	    veiculo.setAno(ano);
+	    veiculo.setValor(valor);
+	    
+	    // Persiste a atualização
+	    dao.atualizar(veiculo);
+	    
+	    System.out.println("Veículo atualizado com sucesso!");
 	}
+
+
+	
+	public void deletarVeiculo() {
+	    VeiculoDAO dao = new VeiculoDAO();
+
+	    System.out.println("Informe o código do veículo para deletar:");
+	    int codigo = sc.nextInt();
+	    sc.nextLine(); // limpar buffer
+
+	    Veiculo veiculo = dao.buscarPorId(codigo);
+
+	    if (veiculo == null) {
+	        System.out.println("Veículo com código " + codigo + " não encontrado.");
+	        return;
+	    }
+
+	    dao.deletarVeiculo(codigo);
+	    System.out.println("Veículo deletado com sucesso!");
+	}
+
 	
 }

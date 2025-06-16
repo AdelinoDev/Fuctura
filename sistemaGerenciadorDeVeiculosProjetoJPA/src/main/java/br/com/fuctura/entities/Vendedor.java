@@ -1,11 +1,12 @@
 package br.com.fuctura.entities;
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -22,19 +23,18 @@ public class Vendedor {
 	private String celular;
 	private String email;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "venda_id", referencedColumnName = "codigo")
-	private Venda venda;
+	@OneToMany(mappedBy = "vendedor", cascade = CascadeType.ALL)
+    private List<Venda> vendas;
 	
 	public Vendedor() {}
 
-	public Vendedor(Integer codigo, String nome, String cpf, String celular, String email, Venda venda) {
+	public Vendedor(Integer codigo, String nome, String cpf, String celular, String email, List<Venda> vendas) {
 		this.codigo = codigo;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.celular = celular;
 		this.email = email;
-		this.venda = venda;
+		this.vendas = vendas;
 	}
 
 	
@@ -78,13 +78,12 @@ public class Vendedor {
 		this.email = email;
 	}
 
-	public Venda getVenda() {
-		return venda;
+	public List<Venda> getVendas() {
+		return vendas;
 	}
 
-	public void setVenda(Venda venda) {
-		this.venda = venda;
+	public void setVendas(List<Venda> vendas) {
+		this.vendas = vendas;
 	}
-
 
 }

@@ -1,11 +1,14 @@
 package br.com.fuctura.entities;
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -22,24 +25,23 @@ public class Cliente {
 	private String celular;
 	private String email;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "venda_id", referencedColumnName = "codigo")
-	private Venda venda;
+	@OneToMany(mappedBy = "cliente")
+    private List<Venda> vendas;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "endereco_id", referencedColumnName = "codigo")
 	private Endereco endereco;
 	
 	public Cliente() {}
 
-	public Cliente(Integer codigo, String nome, String cpf, String celular, String email, Venda venda,
+	public Cliente(Integer codigo, String nome, String cpf, String celular, String email, List<Venda> vendas,
 			Endereco endereco) {
 		this.codigo = codigo;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.celular = celular;
 		this.email = email;
-		this.venda = venda;
+		this.vendas = vendas;
 		this.endereco = endereco;
 	}
 
@@ -83,12 +85,13 @@ public class Cliente {
 		this.email = email;
 	}
 
-	public Venda getVenda() {
-		return venda;
+
+	public List<Venda> getVendas() {
+		return vendas;
 	}
 
-	public void setVenda(Venda venda) {
-		this.venda = venda;
+	public void setVendas(List<Venda> vendas) {
+		this.vendas = vendas;
 	}
 
 	public Endereco getEndereco() {

@@ -1,17 +1,18 @@
 package br.com.fuctura.entities;
 
-import jakarta.persistence.CascadeType;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "veiculo")
+@Table(name = "tb_veiculo")
 public class Veiculo {
 	
 	@Id
@@ -24,23 +25,22 @@ public class Veiculo {
 	private Double valor;
 	
 	@ManyToOne
-	@JoinColumn(name = "loja_id")
-	private Loja loja;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "tipo_id", referencedColumnName = "codigo")
-	private Tipo tipo;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "venda_id", referencedColumnName = "codigo")
-	private Venda venda;
+    @JoinColumn(name = "loja_id")
+    private Loja loja;
+
+    @ManyToOne
+    @JoinColumn(name = "tipo_id")
+    private Tipo tipo;
+
+    @OneToMany(mappedBy = "veiculo")
+    private List<Venda> vendas;
 	
 	
 	public Veiculo() {
 	}
 
 	public Veiculo(Integer codigo, String placa, String modelo, Integer ano, 
-			Double valor, Loja loja, Tipo tipo, Venda venda) {
+			Double valor, Loja loja, Tipo tipo, List<Venda> vendas) {
 		this.codigo = codigo;
 		this.placa = placa;
 		this.modelo = modelo;
@@ -48,7 +48,7 @@ public class Veiculo {
 		this.valor = valor;
 		this.loja = loja;
 		this.tipo = tipo;
-		this.venda = venda;
+		this.vendas = vendas;
 	}
 	
 
@@ -108,16 +108,15 @@ public class Veiculo {
 		this.tipo = tipo;
 	}
 
-	public Venda getVenda() {
-		return venda;
+	public List<Venda> getVendas() {
+		return vendas;
 	}
 
-	public void setVenda(Venda venda) {
-		this.venda = venda;
+	public void setVendas(List<Venda> vendas) {
+		this.vendas = vendas;
 	}
-
 	
-	
-	
-
 }
+
+
+

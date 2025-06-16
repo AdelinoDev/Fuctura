@@ -4,7 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -12,22 +13,26 @@ import jakarta.persistence.Table;
 public class Venda {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private Integer codigo;
+	
 	private Double valor;
 	
-	@OneToOne(mappedBy = "venda")
-	private Loja loja;
-	
-	@OneToOne(mappedBy = "venda")
-	private Vendedor vendedor;
-	
-	@OneToOne(mappedBy = "venda")
-	private Cliente cliente;
+	@ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
-	@OneToOne(mappedBy = "venda")
-	private Veiculo veiculo;
+    @ManyToOne
+    @JoinColumn(name = "loja_id")
+    private Loja loja;
+
+    @ManyToOne
+    @JoinColumn(name = "vendedor_id")
+    private Vendedor vendedor;
+
+    @ManyToOne
+    @JoinColumn(name = "veiculo_id")
+    private Veiculo veiculo;
 	
 	public Venda() {}
 

@@ -15,7 +15,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "loja")
+@Table(name = "tb_loja")
 public class Loja {
 	
 	@Id
@@ -26,29 +26,28 @@ public class Loja {
 	private String endereco;
 	private String cnpj;
 	
-	@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-	private List<Veiculo> veiculos;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "venda_id", referencedColumnName = "codigo")
-	private List<Venda> venda;
-	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "endereco_id", referencedColumnName = "codigo")
-	private Endereco end;
+    @JoinColumn(name = "endereco_id", referencedColumnName = "codigo")
+    private Endereco end;
+
+    @OneToMany(mappedBy = "loja", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private List<Veiculo> veiculos;
+
+    @OneToMany(mappedBy = "loja", cascade = CascadeType.ALL)
+    private List<Venda> vendas;
 		
 	
 	public Loja() {
 	}
 
-	public Loja(Integer codigo, String nome, String endereco, String cnpj, List<Veiculo> veiculos, List<Venda> venda,
+	public Loja(Integer codigo, String nome, String endereco, String cnpj, List<Veiculo> veiculos, List<Venda> vendas,
 			Endereco end) {
 		this.codigo = codigo;
 		this.nome = nome;
 		this.endereco = endereco;
 		this.cnpj = cnpj;
 		this.veiculos = veiculos;
-		this.venda = venda;
+		this.vendas = vendas;
 		this.end = end;
 	}
 
@@ -94,11 +93,11 @@ public class Loja {
 	}
 
 	public List<Venda> getVenda() {
-		return venda;
+		return vendas;
 	}
 
-	public void setVenda(List<Venda> venda) {
-		this.venda = venda;
+	public void setVenda(List<Venda> vendas) {
+		this.vendas = vendas;
 	}
 
 	public Endereco getEnd() {

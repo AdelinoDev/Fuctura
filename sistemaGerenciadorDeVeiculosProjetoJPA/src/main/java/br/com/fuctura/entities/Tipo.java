@@ -1,10 +1,12 @@
 package br.com.fuctura.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,17 +16,18 @@ public class Tipo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer codigo;
+	
 	private String descricao;
 	
-	@OneToOne(mappedBy = "tipo")
-	private Veiculo veiculo;
+	@OneToMany(mappedBy = "tipo")
+    private List<Veiculo> veiculos;
 	
 	public Tipo() {}
 	
-	public Tipo(Integer codigo, String descricao, Veiculo veiculo) {
+	public Tipo(Integer codigo, String descricao, List<Veiculo> veiculos) {
 		this.codigo = codigo;
 		this.descricao = descricao;
-		this.veiculo = veiculo;
+		this.veiculos = veiculos;
 	}
 
 
@@ -44,14 +47,12 @@ public class Tipo {
 		this.descricao = descricao;
 	}
 
-	public Veiculo getVeiculo() {
-		return veiculo;
+	public List<Veiculo> getVeiculos() {
+		return veiculos;
 	}
 
-	public void setVeiculo(Veiculo veiculo) {
-		this.veiculo = veiculo;
+	public void setVeiculos(List<Veiculo> veiculos) {
+		this.veiculos = veiculos;
 	}
-	
-	
 
 }
